@@ -6,7 +6,7 @@ import { ResolutionUpload } from '@/components/admin/ResolutionUpload';
 import { ValidationButtons } from '@/components/reports/ValidationButtons';
 import Link from 'next/link';
 import { VerifyButton } from '@/components/reports/VerifyButton';
-import { ArrowUp, MessageSquare, MapPin, Calendar, Building, CheckCircle } from 'lucide-react';
+import { ArrowUp, MessageSquare, MapPin, Calendar, Building, CheckCircle, Play } from 'lucide-react';
 import { CommentSection } from '@/components/reports/CommentSection';
 import { UpvoteButton } from '@/components/reports/UpvoteButton';
 import { IssueTimeline } from '@/components/reports/IssueTimeline';
@@ -127,23 +127,70 @@ export default async function ReportDetailPage({
         ← Back to community
       </Link>
 
-{/* Media — image or video */}
+{/* Report Image (Always shown) */}
 {report.image_url && (
-  <div style={{ borderRadius: '16px', overflow: 'hidden', marginBottom: '24px' }}>
-    {report.image_url.toLowerCase().match(/\.(mp4|mov|webm|ogg|avi|mkv)/) ||
-     report.image_url.toLowerCase().includes('video') ? (
-      <video
-        src={report.image_url}
-        controls
-        style={{ width: '100%', maxHeight: '400px', display: 'block', background: '#000' }}
-      />
-    ) : (
-      <img
-        src={report.image_url}
-        alt={report.title}
-        style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }}
-      />
-    )}
+  <div
+    style={{
+      borderRadius: '16px',
+      overflow: 'hidden',
+      marginBottom: '24px',
+    }}
+  >
+    <img
+      src={report.image_url}
+      alt={report.title}
+      style={{
+        width: '100%',
+        height: '280px',
+        objectFit: 'cover',
+        display: 'block',
+      }}
+    />
+  </div>
+)}
+
+{/* Video Evidence (Optional) */}
+{(report as any).video_url && (
+  <div
+    style={{
+      borderRadius: '16px',
+      overflow: 'hidden',
+      marginBottom: '24px',
+      background: '#000',
+    }}
+  >
+    <div
+      style={{
+        padding: '10px 14px',
+        background: 'rgba(59,130,246,0.15)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+      }}
+    >
+      {/* <Play size={14} style={{ color: '#60a5fa' }} /> */}
+      <span
+        style={{
+          color: '#60a5fa',
+          fontSize: '12px',
+          fontWeight: 600,
+        }}
+      >
+        VIDEO EVIDENCE
+      </span>
+    </div>
+
+    <video
+      src={(report as any).video_url}
+      controls
+      playsInline
+      style={{
+        width: '100%',
+        maxHeight: '420px',
+        display: 'block',
+      }}
+    />
   </div>
 )}
 
