@@ -1,401 +1,962 @@
-# 🗺️ Civic Saathi — Hyperlocal Problem Solver
+# 🗺️ Civic Saathi – AI-Powered Hyperlocal Civic Issue Reporting Platform
 
-> A citizen-powered platform to report, track, and resolve community civic issues through AI, collaboration, and transparency.
+<div align="center">
 
-Built for the **Community Hero — Hyperlocal Problem Solver** hackathon challenge (Problem Statement 2).
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Supabase](https://img.shields.io/badge/Supabase-Backend-green?logo=supabase)
+![Google Gemini](https://img.shields.io/badge/Google-Gemini_AI-orange?logo=google)
+![Google Maps](https://img.shields.io/badge/Google-Maps_API-red?logo=googlemaps)
 
----
+### 🚀 Empowering Citizens • Enabling Transparency • Solving Civic Issues with AI
 
-## 🌟 Overview
+Built for the **Community Hero – Hyperlocal Problem Solver Hackathon**
 
-Civic Saathi bridges the gap between citizens and local authorities. Citizens can report infrastructure issues like potholes, water leakages, broken streetlights, and waste management problems. Reports are automatically categorized by AI, routed to the correct government department, and tracked transparently from submission to resolution — with email notifications at every step.
-
----
-
-## ✨ Features
-
-### 📋 Issue Reporting
-- **Image upload** — attach photos of the issue (JPG, PNG, WebP — max 10MB)
-- **Video upload** — attach video evidence (MP4, MOV, WebM — max 50MB)
-- **AI-powered analysis** — Google Gemini 2.0 Flash auto-generates title, category, severity, department routing, and a plain-language summary
-- **AI duplicate detection** — before submitting, checks if a similar report exists within 500m and warns the user
-- **Anonymous reporting** — submit without revealing your identity
-- **GPS location** — one-click location capture via browser geolocation
-- **Manual location** — state/city/area picker for India with coordinates
-- **Edit & delete** — report owners can edit title/description or delete their own reports
-
-### 🗺️ Issue Map
-- Interactive **Google Maps** showing all reported issues
-- Markers color-coded by severity (Critical / High / Medium / Low)
-- Filter markers by severity level
-- Click any marker to preview report details
-- Auto-detects user location and centers map
-
-### 👥 Community
-- **Upvoting** — show support for reports
-- **Comments** — discuss issues with the community
-- **Community Verification Badge** — automatically awarded when a report gets 5+ upvotes
-- **Confirm / Dispute buttons** — citizens validate whether a report is accurate
-- **Community feed** — browse all reports sorted by latest, with image thumbnails, badges, and stats
-
-### 📊 Issue Tracking
-- **Issue timeline** — 4-stage progress tracker: Open → In Progress → Resolved → Closed
-- **Admin notes** — admins add notes at each status change (e.g. "Assigned to road repair team")
-- **Activity log** — full history of every status change on each report
-- **Resolution proof** — when marking resolved, admin uploads a photo and description as proof of fix
-- **Email notifications** — report owner receives email when status changes; department receives email when assigned
-- **Live counts** — upvotes and comments always show real-time numbers
-
-### 📈 Dashboard & Predictive Insights
-- Personal stats: reports filed, issues resolved, points earned, badge rank
-- **Weekly trend chart** — bar chart of reports filed and resolved over last 7 days with resolution rate
-- **Predictive insights panel**:
-  - 🔥 Problem hotspots by category
-  - 📊 Severity breakdown with AI tip
-  - ⚠️ Critical issues needing immediate attention
-- My recent reports with status badges
-- Community feed preview
-
-### 🏆 Gamification
-- **Points system** — earn points for reporting issues
-- **5 badge levels** — Newcomer 🌱 → Reporter 📋 → Guardian 🛡️ → Hero ⭐ → Champion 🏆
-- **Community leaderboard** — top contributors ranked by points
-
-### 🛡️ Admin Panel (/admin)
-- Full reports table with inline status update dropdown
-- **SLA tracker** — flags overdue issues (Critical: 1 day, High: 3 days, Medium: 7 days, Low: 14 days)
-- KPI cards: Total, Open, In Progress, Resolved, Avg. resolution days, Resolution %
-- **Impact charts** — category breakdown, status distribution, weekly trend, severity breakdown
-- **AI predictive insights** — powered by Gemini 2.0 Flash
-- User leaderboard with badge levels
-- Category breakdown bar chart
-
-### 🤖 AI Features
-- Auto-categorization using Google Gemini 2.0 Flash
-- Automatic department routing based on issue type
-- AI-generated plain-language summary for every report
-- AI duplicate detection using text similarity + geo-distance (500m radius)
-- Keyword-based fallback classifier when Gemini quota is exceeded
+</div>
 
 ---
 
-## 🛠️ Tech Stack
+# 🌟 Overview
 
-| Layer | Technology | Version |
-|---|---|---|
-| Framework | Next.js (App Router) | 16.2.9 |
-| Language | TypeScript | ^5 |
-| Frontend | React | 19.2.4 |
-| Database + Auth + Storage | Supabase (PostgreSQL) | ^2.108.2 |
-| AI | Google Gemini 2.0 Flash | @google/generative-ai ^0.24.1 |
-| Maps | Google Maps JavaScript API | @react-google-maps/api ^2.20.8 |
-| Email | Nodemailer + Gmail | ^9.0.1 |
-| Forms | React Hook Form + Zod | ^7.80.0 / ^4.4.3 |
-| Styling | Tailwind CSS | ^4.3.1 |
-| Icons | Lucide React | ^1.21.0 |
-| Toast notifications | React Hot Toast | ^2.6.0 |
-| UI primitives | Radix UI + shadcn | ^1.6.0 |
-| Unique IDs | UUID | ^14.0.1 |
+**Civic Saathi** is an AI-powered civic issue reporting platform that connects citizens with local authorities through intelligent automation, community collaboration, and transparent issue tracking.
+
+Citizens can report problems such as potholes, water leakages, broken streetlights, overflowing garbage, illegal dumping, damaged roads, and many more using images or videos.
+
+Once submitted, **Google Gemini AI** automatically:
+
+- Classifies the issue
+- Determines severity
+- Generates a meaningful title
+- Creates a plain-language summary
+- Detects duplicate complaints
+- Routes the issue to the correct government department
+
+Citizens can then monitor the issue's lifecycle from submission to resolution while receiving real-time updates and email notifications.
+
+The platform also provides a dedicated **Admin Dashboard** for authorities to efficiently manage reports, monitor analytics, and track civic performance.
 
 ---
 
-## 🚀 Getting Started
+# 🎯 Problem Statement
 
-### Prerequisites
+Many civic problems remain unresolved because:
+
+- Citizens don't know where to report them.
+- Duplicate complaints waste administrative effort.
+- There is little transparency after filing a complaint.
+- Authorities lack centralized analytics.
+- Citizens rarely receive updates regarding issue resolution.
+
+**Civic Saathi solves these challenges by combining AI, geolocation, community participation, and real-time tracking into one seamless platform.**
+
+---
+
+# ✨ Key Highlights
+
+- 🤖 AI-powered issue classification using Google Gemini
+- 📍 GPS & Google Maps integration
+- 📸 Image & Video complaint submission
+- 🔍 AI duplicate detection
+- 🏛️ Automatic department routing
+- 📈 Predictive analytics dashboard
+- 📧 Email notifications
+- 🛡️ Secure Admin Panel
+- 👥 Community verification
+- 🏆 Gamification & Leaderboard
+- 📊 Real-time dashboards
+- 📱 Responsive UI
+
+---
+
+# 🌐 Live Demo
+
+
+```
+https://civic-ai-saathi.vercel.app/
+```
+
+### Admin Login
+
+```
+Email: admin@gmail.com
+Password: admin1234
+```
+
+> These credentials are provided for hackathon demonstration purposes only.
+
+---
+
+# 🎥 Demo Video
+
+
+```
+https://youtu.be/thHguyH2PMc?si=GBBwOKL0cyTBFJnM
+```
+
+---
+
+# 📸 Screenshots & Project Documentation
+
+```
+https://docs.google.com/document/d/1OUtL79AhW7xaoaeCLIynn9j4fRYLFg4pjjS4Y63rptg/edit?usp=sharing
+```
+
+---
+
+
+# 🏗️ System Architecture
+
+```text
+                Citizen
+                   │
+                   ▼
+          Next.js Frontend
+                   │
+        ┌──────────┼──────────┐
+        │          │          │
+        ▼          ▼          ▼
+ Supabase     Google Maps    Gemini AI
+ Auth/DB        Location     Classification
+ Storage         API         & Insights
+        │
+        ▼
+ PostgreSQL Database
+        │
+        ▼
+ Admin Dashboard
+        │
+        ▼
+ Email Notifications
+```
+
+---
+
+# 🤖 AI Workflow
+
+```text
+User uploads Image / Video
+              │
+              ▼
+      Google Gemini AI
+              │
+              ▼
+ Generates
+ • Title
+ • Category
+ • Severity
+ • Summary
+ • Department
+              │
+              ▼
+Duplicate Detection
+(within 500m radius)
+              │
+              ▼
+ Save Report
+              │
+              ▼
+Notify Department
+              │
+              ▼
+Citizen Tracks Progress
+              │
+              ▼
+Admin Resolves Issue
+```
+
+---
+
+# 🚀 Features
+
+---
+
+## 📋 Smart Issue Reporting
+
+Users can report civic problems with rich details.
+
+### Features
+
+- 📸 Upload images (JPG, PNG, WebP)
+- 🎥 Upload videos (MP4, MOV, WebM)
+- 📍 Automatic GPS detection
+- 📍 Manual India location picker
+- 🤖 AI-generated title
+- 🤖 AI-generated description
+- 🤖 AI categorization
+- 🤖 Severity prediction
+- 🏛️ Department allocation
+- 🔍 Duplicate detection
+- 🙈 Anonymous reporting
+- ✏️ Edit reports
+- 🗑️ Delete reports
+
+---
+
+## 🤖 AI Features
+
+Powered by **Google Gemini 2.0 Flash**
+
+- Automatic issue categorization
+- Severity prediction
+- Department routing
+- Plain-language summaries
+- Duplicate complaint detection
+- Keyword fallback classifier
+- AI predictive insights
+- Smart recommendations
+
+---
+
+## 🗺️ Interactive Issue Map
+
+- Google Maps integration
+- Color-coded markers
+- Severity filters
+- Live report preview
+- Current location detection
+- Interactive navigation
+
+---
+
+## 👥 Community Features
+
+Citizens collaborate to verify issues.
+
+Features include:
+
+- 👍 Upvoting
+- 💬 Comments
+- ✅ Confirm reports
+- ❌ Dispute reports
+- 🏅 Community Verification Badge
+- 📢 Community feed
+- Live counters
+
+---
+
+## 📊 Issue Tracking
+
+Every report follows a transparent lifecycle.
+
+```
+Open
+   ↓
+In Progress
+   ↓
+Resolved
+   ↓
+Closed
+```
+
+Includes
+
+- Timeline
+- Activity history
+- Resolution proof
+- Admin notes
+- Email notifications
+- Status updates
+
+---
+
+## 📈 Dashboard
+
+Each citizen receives a personalized dashboard containing
+
+- Reports filed
+- Reports resolved
+- Weekly trends
+- Resolution rate
+- Badge level
+- Community rank
+- AI insights
+- Recent activity
+
+---
+
+## 🏆 Gamification
+
+Rewarding active citizens.
+
+### Badge Levels
+
+🌱 Newcomer
+
+↓
+
+📋 Reporter
+
+↓
+
+🛡️ Guardian
+
+↓
+
+⭐ Hero
+
+↓
+
+🏆 Champion
+
+Users earn points for contributing and appear on the community leaderboard.
+
+---
+
+## 🛡️ Admin Panel
+
+Accessible **only to authorized administrators**.
+
+### Default Credentials
+
+```
+Email: admin@gmail.com
+Password: admin1234
+```
+
+### Admin Capabilities
+
+- View all reports
+- Update issue status
+- Upload resolution proof
+- Add admin notes
+- Monitor SLA tracker
+- View analytics
+- AI insights
+- Leaderboard
+- Delete fake reports
+- Manage issue lifecycle
+
+Unauthorized users cannot access the `/admin` route.
+
+---
+
+## 📧 Email Notifications
+
+Automatic emails are sent when
+
+- A report is assigned
+- Status changes
+- Issue gets resolved
+- Resolution proof is uploaded
+
+---
+
+## 🔒 Security Features
+
+- Supabase Authentication
+- Protected Admin Routes
+- Role-based access
+- Row Level Security (RLS)
+- Secure file uploads
+- Form validation with Zod
+- Duplicate protection
+- Input sanitization
+
+---
+
+# 🛠️ Technology Stack
+# 🛠️ Technology Stack
+
+| Layer | Technology |
+|--------|------------|
+| **Framework** | Next.js 16 (App Router) |
+| **Language** | TypeScript |
+| **Frontend** | React 19 |
+| **Styling** | Tailwind CSS 4 |
+| **Backend** | Supabase |
+| **Database** | PostgreSQL |
+| **Authentication** | Supabase Auth |
+| **Storage** | Supabase Storage |
+| **AI** | Google Gemini 2.0 Flash |
+| **Maps** | Google Maps JavaScript API |
+| **Validation** | Zod |
+| **Forms** | React Hook Form |
+| **Charts** | Recharts |
+| **Icons** | Lucide React |
+| **UI Components** | shadcn/ui + Radix UI |
+| **Notifications** | React Hot Toast |
+| **Email Service** | Nodemailer + Gmail |
+| **Deployment** | Vercel |
+
+---
+
+# 📂 Project Structure
+
+```text
+civic-saathi-ai/
+
+├── app/
+│   ├── (auth)/
+│   │   ├── login/
+│   │   └── signup/
+│   │
+│   ├── (dashboard)/
+│   │   ├── admin/
+│   │   ├── community/
+│   │   ├── dashboard/
+│   │   ├── map/
+│   │   ├── report/
+│   │   └── reports/[id]/
+│   │
+│   ├── api/
+│   │   ├── ai/
+│   │   ├── reports/
+│   │   ├── notify/
+│   │   └── check-duplicate/
+│   │
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── components/
+│   ├── admin/
+│   ├── dashboard/
+│   ├── reports/
+│   └── layout/
+│
+├── lib/
+│   ├── supabase/
+│   ├── gemini.ts
+│   ├── admin.ts
+│   └── utils.ts
+│
+├── public/
+├── types/
+├── package.json
+├── README.md
+└── .env.local
+```
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+Before running the project, make sure you have:
+
 - Node.js 18+
-- Supabase account (free tier works)
-- Google Cloud account (Maps API + Gemini API keys)
-- Gmail account with 2-Step Verification enabled
+- npm
+- Supabase Account
+- Google Cloud Account
+- Gemini API Key
+- Gmail Account
 
-### 1. Clone the repository
+---
+
+# 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/yourusername/civic-saathi-ai.git
+
 cd civic-saathi-ai
 ```
 
-### 2. Install dependencies
+---
+
+# 2️⃣ Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Set up environment variables
+---
 
-Create a `.env.local` file in the root directory:
+# 3️⃣ Environment Variables
+
+Create
+
+```text
+.env.local
+```
+
+Add
 
 ```env
 # Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SUPABASE_URL=
+
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
 
 # Google Maps
-NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=
 
-# Google Gemini AI
-GEMINI_API_KEY=your_gemini_api_key
+# Gemini
+GEMINI_API_KEY=
 
-# Gmail (for email notifications)
-GMAIL_USER=youremail@gmail.com
-GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+# Gmail
+GMAIL_USER=
+
+GMAIL_APP_PASSWORD=
 
 # App URL
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-### 4. Set up Supabase database
+---
 
-Run this SQL in your Supabase SQL Editor:
+# 4️⃣ Database Setup
 
-```sql
--- Users table
-CREATE TABLE users (
-  id uuid REFERENCES auth.users PRIMARY KEY,
-  name text,
-  email text,
-  is_admin boolean DEFAULT false,
-  points integer DEFAULT 0,
-  reports_count integer DEFAULT 0,
-  badge_level text DEFAULT 'newcomer',
-  created_at timestamptz DEFAULT now()
-);
+Run the SQL script provided below in the **Supabase SQL Editor**.
 
--- Departments table
-CREATE TABLE departments (
-  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  name text,
-  email text
-);
+The database contains the following tables:
 
--- Insert default departments
-INSERT INTO departments (name, email) VALUES
-  ('Roads & Infrastructure', 'roads@civic.gov'),
-  ('Sanitation & Waste', 'sanitation@civic.gov'),
-  ('Water & Utilities', 'water@civic.gov'),
-  ('Electrical & Lighting', 'electrical@civic.gov'),
-  ('Public Safety', 'safety@civic.gov'),
-  ('Parks & Recreation', 'parks@civic.gov');
+- Users
+- Reports
+- Departments
+- Upvotes
+- Comments
+- Timeline Events
+- Report Validations
 
--- Reports table
-CREATE TABLE reports (
-  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  user_id uuid REFERENCES users(id),
-  title text,
-  description text,
-  ai_summary text,
-  category text,
-  severity text DEFAULT 'medium',
-  status text DEFAULT 'open',
-  department_id uuid REFERENCES departments(id),
-  image_url text,
-  video_url text,
-  latitude double precision,
-  longitude double precision,
-  address text,
-  upvotes_count integer DEFAULT 0,
-  comments_count integer DEFAULT 0,
-  is_anonymous boolean DEFAULT false,
-  is_verified boolean DEFAULT false,
-  resolution_image_url text,
-  resolution_note text,
-  resolved_at timestamptz,
-  created_at timestamptz DEFAULT now(),
-  updated_at timestamptz DEFAULT now()
-);
+After creating the tables:
 
--- Upvotes table
-CREATE TABLE upvotes (
-  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  report_id uuid REFERENCES reports(id) ON DELETE CASCADE,
-  user_id uuid REFERENCES users(id) ON DELETE CASCADE,
-  created_at timestamptz DEFAULT now(),
-  UNIQUE(report_id, user_id)
-);
+- Enable Row Level Security (RLS)
+- Apply the provided policies
+- Insert the default departments
 
--- Comments table
-CREATE TABLE comments (
-  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  report_id uuid REFERENCES reports(id) ON DELETE CASCADE,
-  user_id uuid REFERENCES users(id) ON DELETE CASCADE,
-  content text,
-  created_at timestamptz DEFAULT now()
-);
+> **Note:** Use the SQL schema provided in this repository to create all tables and policies.
 
--- Timeline events table
-CREATE TABLE timeline_events (
-  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  report_id uuid REFERENCES reports(id) ON DELETE CASCADE,
-  status text,
-  note text,
-  created_by uuid REFERENCES users(id),
-  created_at timestamptz DEFAULT now()
-);
+---
 
--- Report validations (confirm/dispute)
-CREATE TABLE report_validations (
-  id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
-  report_id uuid REFERENCES reports(id) ON DELETE CASCADE,
-  user_id uuid REFERENCES users(id) ON DELETE CASCADE,
-  type text CHECK (type IN ('confirm', 'dispute')),
-  created_at timestamptz DEFAULT now(),
-  UNIQUE(report_id, user_id)
-);
+# 5️⃣ Supabase Storage
 
--- Enable RLS
-ALTER TABLE users ENABLE ROW LEVEL SECURITY;
-ALTER TABLE reports ENABLE ROW LEVEL SECURITY;
-ALTER TABLE upvotes ENABLE ROW LEVEL SECURITY;
-ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
-ALTER TABLE timeline_events ENABLE ROW LEVEL SECURITY;
-ALTER TABLE report_validations ENABLE ROW LEVEL SECURITY;
+Create two **Public Buckets**
 
--- RLS Policies
-CREATE POLICY "Anyone can read reports" ON reports FOR SELECT USING (true);
-CREATE POLICY "Users can insert reports" ON reports FOR INSERT WITH CHECK (auth.uid() = user_id OR user_id IS NULL);
-CREATE POLICY "Users can update own reports" ON reports FOR UPDATE USING (auth.uid() = user_id);
-CREATE POLICY "Users can delete own reports" ON reports FOR DELETE USING (auth.uid() = user_id);
-CREATE POLICY "Admins can update any report" ON reports FOR UPDATE USING (
-  EXISTS (SELECT 1 FROM users WHERE users.id = auth.uid() AND users.is_admin = true)
-);
-CREATE POLICY "Anyone can read validations" ON report_validations FOR SELECT USING (true);
-CREATE POLICY "Users can manage own validations" ON report_validations FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Anyone can read upvotes" ON upvotes FOR SELECT USING (true);
-CREATE POLICY "Users can manage own upvotes" ON upvotes FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Anyone can read comments" ON comments FOR SELECT USING (true);
-CREATE POLICY "Users can insert comments" ON comments FOR INSERT WITH CHECK (auth.uid() = user_id);
-CREATE POLICY "Anyone can read timeline" ON timeline_events FOR SELECT USING (true);
-CREATE POLICY "Admins can insert timeline" ON timeline_events FOR INSERT WITH CHECK (
-  EXISTS (SELECT 1 FROM users WHERE users.id = auth.uid() AND users.is_admin = true)
-);
-CREATE POLICY "Anyone can read users" ON users FOR SELECT USING (true);
-CREATE POLICY "Users can update own profile" ON users FOR UPDATE USING (auth.uid() = id);
+```
+report-images
+
+report-videos
 ```
 
-### 5. Set up Supabase Storage
+---
 
-In Supabase Dashboard → Storage, create two **public** buckets:
-- `report-images`
-- `report-videos`
+# 6️⃣ Gmail Setup
 
-### 6. Set up Gmail App Password
+Enable
 
-1. Go to [myaccount.google.com](https://myaccount.google.com)
-2. Security → 2-Step Verification → Enable
-3. Security → App Passwords → Create → name it `civic-saathi`
-4. Copy the 16-character password into `GMAIL_APP_PASSWORD`
+- Two-Step Verification
 
-### 7. Run the development server
+Create
+
+```
+App Password
+```
+
+Add it inside
+
+```
+.env.local
+```
+
+---
+
+# 7️⃣ Run Development Server
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
-
----
-
-## 🔑 Making a User Admin
-
-Run this in Supabase SQL Editor:
-
-```sql
-UPDATE users SET is_admin = true WHERE email = 'youremail@gmail.com';
-```
-
-Then visit [http://localhost:3000/admin](http://localhost:3000/admin)
-
----
-
-## 📁 Project Structure
+Visit
 
 ```
-civic-saathi-ai/
-├── app/
-│   ├── (auth)/
-│   │   ├── login/page.tsx
-│   │   └── signup/page.tsx
-│   ├── (dashboard)/
-│   │   ├── admin/page.tsx           # Admin dashboard
-│   │   ├── community/page.tsx       # All reports feed
-│   │   ├── dashboard/page.tsx       # User dashboard + insights
-│   │   ├── map/page.tsx             # Google Maps view
-│   │   ├── report/page.tsx          # Submit new report
-│   │   ├── reports/[id]/page.tsx    # Report detail page
-│   │   └── layout.tsx               # Sidebar layout
-│   ├── api/
-│   │   ├── ai/classify/route.ts     # Gemini AI categorization
-│   │   ├── ai/insights/route.ts     # AI predictive insights
-│   │   ├── check-duplicate/route.ts # Duplicate detection
-│   │   ├── notify/route.ts          # Email notifications
-│   │   └── reports/route.ts
-│   ├── layout.tsx
-│   └── page.tsx                     # Landing page
-├── components/
-│   ├── admin/
-│   │   ├── AdminStatusUpdate.tsx
-│   │   ├── ImpactCharts.tsx
-│   │   ├── PredictiveInsights.tsx
-│   │   └── ResolutionUpload.tsx
-│   ├── dashboard/
-│   │   └── WeeklyTrendChart.tsx
-│   ├── layout/
-│   │   └── Sidebar.tsx
-│   └── reports/
-│       ├── CommentSection.tsx
-│       ├── IssueTimeline.tsx
-│       ├── LocationPicker.tsx
-│       ├── ReportActions.tsx
-│       ├── UpvoteButton.tsx
-│       ├── ValidationButtons.tsx
-│       └── VerificationBadge.tsx
-├── lib/
-│   ├── supabase/
-│   │   ├── client.ts
-│   │   └── server.ts
-│   ├── admin.ts
-│   ├── constants.ts
-│   ├── gemini.ts
-│   ├── india-locations.ts
-│   └── utils.ts
-├── types/index.ts
-├── .env.local            # Not committed
-├── package.json
-└── README.md
+http://localhost:3000
 ```
 
 ---
 
-## 🌐 Deploy to Vercel
+# 🔐 Admin Access
+
+The application contains a dedicated **Admin Panel** that is only accessible to administrators.
+
+## Default Credentials
+
+```text
+Email: admin@gmail.com
+
+Password: admin1234
+```
+
+Only this account can access
+
+```
+/admin
+```
+
+Regular users attempting to access the Admin Panel will be denied permission.
+
+> **Note:** These credentials are intended only for demonstration and hackathon purposes. In production, use secure role-based authentication and server-side authorization.
+
+---
+
+# 📡 API Endpoints
+
+| Endpoint | Method | Description |
+|-----------|----------|-------------|
+| `/api/reports` | POST | Create report |
+| `/api/reports` | GET | Fetch reports |
+| `/api/ai/classify` | POST | AI issue classification |
+| `/api/ai/insights` | GET | Dashboard AI insights |
+| `/api/check-duplicate` | POST | Detect nearby duplicate issues |
+| `/api/notify` | POST | Send email notifications |
+
+---
+
+# 📊 Database Schema
+
+```text
+Users
+│
+├── Reports
+│      │
+│      ├── Upvotes
+│      ├── Comments
+│      ├── Timeline Events
+│      └── Report Validations
+│
+└── Departments
+```
+
+---
+
+# 🔄 Report Lifecycle
+
+```text
+Citizen Reports Issue
+          │
+          ▼
+AI Categorization
+          │
+          ▼
+Duplicate Detection
+          │
+          ▼
+Department Assignment
+          │
+          ▼
+Open
+          │
+          ▼
+In Progress
+          │
+          ▼
+Resolved
+          │
+          ▼
+Closed
+```
+
+---
+
+# 📈 Dashboard Analytics
+
+The platform provides detailed analytics including
+
+- Total Reports
+- Active Reports
+- Resolved Reports
+- Resolution Percentage
+- Average Resolution Time
+- Category Distribution
+- Severity Distribution
+- Weekly Trends
+- User Leaderboard
+- Community Statistics
+- AI Predictive Insights
+
+---
+
+# 🚀 Deployment
+
+Deploy easily using **Vercel**
 
 ```bash
 npm install -g vercel
+
 vercel --prod
 ```
 
-Add all `.env.local` variables in Vercel Dashboard → Project → Settings → Environment Variables. Update `NEXT_PUBLIC_APP_URL` to your live Vercel URL.
+After deployment,
+
+Add all environment variables inside
+
+```
+Vercel Dashboard
+
+↓
+
+Project Settings
+
+↓
+
+Environment Variables
+```
+
+Update
+
+```env
+NEXT_PUBLIC_APP_URL=
+```
+
+to your deployed URL.
+# 🔒 Security & Best Practices
+
+Civic Saathi follows modern security practices to ensure user data and administrative functionality remain protected.
+
+### Authentication
+
+- Secure authentication using **Supabase Auth**
+- Protected user sessions
+- Email & password authentication
+- Anonymous issue reporting support
+
+### Authorization
+
+- Role-based Admin Access
+- Protected `/admin` route
+- Row Level Security (RLS)
+- User-specific permissions
+- Admin-only report management
+
+### Validation
+
+- Zod schema validation
+- React Hook Form validation
+- Secure file upload restrictions
+- Input sanitization
+- Duplicate report prevention
+
+### Storage
+
+- Secure Supabase Storage
+- Separate buckets for images and videos
+- Public access only to required assets
 
 ---
 
-## 🎯 Problem Statement Coverage
+# ⚡ Performance Optimizations
+
+The platform is optimized for scalability and responsiveness.
+
+- ⚡ Next.js App Router
+- ⚡ Server Components
+- ⚡ Dynamic Imports
+- ⚡ Optimized Image Loading
+- ⚡ Efficient Database Queries
+- ⚡ Indexed PostgreSQL Tables
+- ⚡ Cached AI Responses
+- ⚡ Lazy Loading Components
+- ⚡ Responsive UI across devices
+
+---
+
+# 🎯 Hackathon Problem Statement Coverage
 
 | Requirement | Status | Implementation |
-|---|---|---|
-| Image-based issue reporting | ✅ | Supabase Storage, max 10MB |
-| Video-based issue reporting | ✅ | Supabase Storage, max 50MB |
-| AI-powered issue categorization | ✅ | Google Gemini 2.0 Flash |
-| Geo-location and mapping | ✅ | Google Maps API + GPS |
-| Community verification | ✅ | 5-upvote badge + Confirm/Dispute |
-| Real-time issue tracking | ✅ | 4-stage timeline with activity log |
-| Impact dashboards | ✅ | User dashboard + Admin dashboard |
-| Predictive insights | ✅ | Hotspots + SLA tracker + Weekly trend |
-| Gamification | ✅ | Points + 5 badge levels + Leaderboard |
+|-------------|--------|----------------|
+| Image-based Issue Reporting | ✅ | Image upload with preview |
+| Video-based Issue Reporting | ✅ | Video evidence support |
+| AI Issue Categorization | ✅ | Google Gemini 2.0 Flash |
+| Automatic Department Routing | ✅ | AI-powered routing |
+| Duplicate Detection | ✅ | Geo-distance + AI similarity |
+| GPS Location | ✅ | Browser Geolocation API |
+| Interactive Maps | ✅ | Google Maps JavaScript API |
+| Community Verification | ✅ | Upvotes + Confirm/Dispute |
+| Issue Tracking | ✅ | Timeline & Status Updates |
+| Resolution Proof | ✅ | Admin image upload |
+| Email Notifications | ✅ | Nodemailer + Gmail |
+| Analytics Dashboard | ✅ | Charts & KPIs |
+| Predictive Insights | ✅ | AI-generated insights |
+| Gamification | ✅ | Points, Badges & Leaderboard |
+| Admin Dashboard | ✅ | Complete management portal |
 
 ---
 
-## 📄 License
+# 🌍 Why Civic Saathi?
 
-MIT License
+Most citizens experience problems like:
+
+- Potholes
+- Broken streetlights
+- Garbage accumulation
+- Water leakages
+- Damaged roads
+- Illegal dumping
+- Sewer blockages
+
+However, reporting these issues is often fragmented, time-consuming, and lacks transparency.
+
+**Civic Saathi** simplifies this process by combining Artificial Intelligence, geolocation, community participation, and transparent issue tracking into a single platform.
+
+Instead of simply reporting a complaint, citizens become active participants in improving their communities.
 
 ---
 
-*Built with ❤️ for Community Impact — Civic Saathi makes every citizen a guardian of their community.*
+# 🚀 Future Enhancements
+
+The project has significant potential for future expansion.
+
+### AI
+
+- AI priority prediction
+- AI repair cost estimation
+- AI-generated repair recommendations
+- OCR for extracting text from images
+- Voice-based issue reporting
+- Multilingual AI assistance
+
+### Citizen Experience
+
+- Mobile Application (Android & iOS)
+- Push Notifications
+- WhatsApp Complaint Integration
+- SMS Notifications
+- Offline Report Submission
+
+### Government Integration
+
+- Integration with Municipal APIs
+- Department Performance Dashboard
+- Smart City Data Integration
+- Automatic Work Order Generation
+
+### Community
+
+- Volunteer Groups
+- Local Community Forums
+- Reward Marketplace
+- Citizen Challenges
+- Monthly Community Awards
+
+---
+
+# 📚 Learning Outcomes
+
+This project demonstrates practical implementation of:
+
+- Full Stack Development
+- Next.js App Router
+- React & TypeScript
+- PostgreSQL Database Design
+- Authentication & Authorization
+- Row Level Security (RLS)
+- REST API Development
+- Google Gemini AI Integration
+- Google Maps API
+- Email Automation
+- Dashboard Design
+- Data Visualization
+- Responsive UI/UX
+
+---
+
+# 🧪 Testing Checklist
+
+- ✅ User Authentication
+- ✅ Report Submission
+- ✅ Image Upload
+- ✅ Video Upload
+- ✅ AI Categorization
+- ✅ Duplicate Detection
+- ✅ Map Rendering
+- ✅ Upvotes
+- ✅ Comments
+- ✅ Community Verification
+- ✅ Dashboard Analytics
+- ✅ Admin Panel
+- ✅ Resolution Proof Upload
+- ✅ Email Notifications
+- ✅ Mobile Responsiveness
+
+---
+
+# 👨‍💻 Developer
+
+**Shiwani Jha**
+
+### Responsibilities
+
+- Full Stack Development
+- Frontend Design
+- Backend Development
+- Database Design
+- AI Integration
+- Dashboard Development
+- UI/UX Design
+- Google Maps Integration
+- Authentication
+- Deployment
+
+---
+
+# 🤝 Contributing
+
+Contributions are always welcome!
+
+1. Fork the repository
+2. Create a new feature branch
+
+```bash
+git checkout -b feature/your-feature
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Add new feature"
+```
+
+4. Push the branch
+
+```bash
+git push origin feature/your-feature
+```
+
+5. Open a Pull Request
+
+---
+
+# 🙏 Acknowledgements
+
+Special thanks to the amazing technologies that made this project possible.
+
+- Next.js
+- React
+- TypeScript
+- Supabase
+- PostgreSQL
+- Google Gemini AI
+- Google Maps Platform
+- Tailwind CSS
+- shadcn/ui
+- Radix UI
+- Lucide Icons
+- React Hook Form
+- Zod
+- Nodemailer
+- Vercel
+
+---
+
+
+# ⭐ Support
+
+If you found this project useful,
+
+please consider giving it a ⭐ on GitHub.
+
+It helps others discover the project and motivates further development.
+
+---
+
+<div align="center">
+
+## 🌟 Civic Saathi
+
+### *Empowering Citizens • Building Better Communities • Solving Civic Issues with AI*
+
+Made with ❤️ using **Next.js**, **Supabase**, **Google Gemini AI**, and **Google Maps**.
+
+**Thank you for visiting this repository!**
+
+</div>
