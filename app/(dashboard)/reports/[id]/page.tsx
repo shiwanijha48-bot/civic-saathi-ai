@@ -6,7 +6,7 @@ import { ResolutionUpload } from '@/components/admin/ResolutionUpload';
 import { ValidationButtons } from '@/components/reports/ValidationButtons';
 import Link from 'next/link';
 import { VerifyButton } from '@/components/reports/VerifyButton';
-import { ArrowUp, MessageSquare, MapPin, Calendar, Building } from 'lucide-react';
+import { ArrowUp, MessageSquare, MapPin, Calendar, Building, CheckCircle } from 'lucide-react';
 import { CommentSection } from '@/components/reports/CommentSection';
 import { UpvoteButton } from '@/components/reports/UpvoteButton';
 import { IssueTimeline } from '@/components/reports/IssueTimeline';

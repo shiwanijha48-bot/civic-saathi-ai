@@ -17,7 +17,7 @@ const schema = z.object({
   is_anonymous: z.boolean().default(false),
 });
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.input<typeof schema>;
 
 function isVideoFile(file: File) {
   return file.type.startsWith('video/');
@@ -36,9 +36,12 @@ export default function ReportPage() {
   const fileRef = useRef<HTMLInputElement>(null);
   const router  = useRouter();
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(schema),
-  });
+const { register, handleSubmit, watch, formState: { errors } } = useForm<FormData>({
+  resolver: zodResolver(schema),
+  defaultValues: {
+    is_anonymous: false,
+  },
+});
 
   const description = watch('description') ?? '';
 
