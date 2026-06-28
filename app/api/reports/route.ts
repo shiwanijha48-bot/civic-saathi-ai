@@ -4,4 +4,4 @@ export async function GET() {
   return NextResponse.json({
     message: "Reports API is working",
   });
-}
+} 
