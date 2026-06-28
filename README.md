@@ -2,87 +2,100 @@
 
 > A citizen-powered platform to report, track, and resolve community civic issues through AI, collaboration, and transparency.
 
+Built for the **Community Hero — Hyperlocal Problem Solver** hackathon challenge (Problem Statement 2).
+
 ---
 
 ## 🌟 Overview
 
-Civic Saathi enables citizens to identify and report local infrastructure issues like potholes, water leakages, broken streetlights, and waste management problems. Reports are automatically categorized by AI, routed to the correct department, and tracked transparently from submission to resolution.
-
-Built for the **Community Hero — Hyperlocal Problem Solver** hackathon challenge.
+Civic Saathi bridges the gap between citizens and local authorities. Citizens can report infrastructure issues like potholes, water leakages, broken streetlights, and waste management problems. Reports are automatically categorized by AI, routed to the correct government department, and tracked transparently from submission to resolution — with email notifications at every step.
 
 ---
 
 ## ✨ Features
 
 ### 📋 Issue Reporting
-- Image upload with issue submission
-- AI-powered auto-categorization using Google Gemini
-- Keyword-based fallback classifier
-- AI summary generated for each report
-- Anonymous reporting option
-- GPS-based geo-location tagging
-- Address-based location input
-- Edit & delete own reports
+- **Image upload** — attach photos of the issue (JPG, PNG, WebP — max 10MB)
+- **Video upload** — attach video evidence (MP4, MOV, WebM — max 50MB)
+- **AI-powered analysis** — Google Gemini 2.0 Flash auto-generates title, category, severity, department routing, and a plain-language summary
+- **AI duplicate detection** — before submitting, checks if a similar report exists within 500m and warns the user
+- **Anonymous reporting** — submit without revealing your identity
+- **GPS location** — one-click location capture via browser geolocation
+- **Manual location** — state/city/area picker for India with coordinates
+- **Edit & delete** — report owners can edit title/description or delete their own reports
 
-### 🗺️ Mapping
-- Interactive Google Maps with all reported issues
-- Severity-colored markers (Critical / High / Medium / Low)
-- Filter issues by severity on map
-- Click markers to preview report details
-- User location auto-detection
+### 🗺️ Issue Map
+- Interactive **Google Maps** showing all reported issues
+- Markers color-coded by severity (Critical / High / Medium / Low)
+- Filter markers by severity level
+- Click any marker to preview report details
+- Auto-detects user location and centers map
 
 ### 👥 Community
-- Upvote reports to show support
-- Comment on reports
-- Community Verification Badge — auto-awarded at 5+ upvotes
-- Confirm / Dispute buttons — citizens validate report accuracy
-- Community feed with all reports sorted by latest
+- **Upvoting** — show support for reports
+- **Comments** — discuss issues with the community
+- **Community Verification Badge** — automatically awarded when a report gets 5+ upvotes
+- **Confirm / Dispute buttons** — citizens validate whether a report is accurate
+- **Community feed** — browse all reports sorted by latest, with image thumbnails, badges, and stats
 
-### 📊 Tracking & Transparency
-- Issue timeline with 4 stages: Open → In Progress → Resolved → Closed
-- Admin can advance status with optional notes
-- Full activity log on every report
-- Email notification to report owner on status change (via Gmail/Nodemailer)
-- Live upvote and comment counts
+### 📊 Issue Tracking
+- **Issue timeline** — 4-stage progress tracker: Open → In Progress → Resolved → Closed
+- **Admin notes** — admins add notes at each status change (e.g. "Assigned to road repair team")
+- **Activity log** — full history of every status change on each report
+- **Resolution proof** — when marking resolved, admin uploads a photo and description as proof of fix
+- **Email notifications** — report owner receives email when status changes; department receives email when assigned
+- **Live counts** — upvotes and comments always show real-time numbers
 
-### 🏆 Gamification
-- Points earned for reporting issues
-- Badge levels: Newcomer → Reporter → Guardian → Hero → Champion
-- Community leaderboard
-
-### 📈 Dashboard & Insights
-- Personal stats: reports filed, resolved, points, rank
-- Predictive insights panel:
+### 📈 Dashboard & Predictive Insights
+- Personal stats: reports filed, issues resolved, points earned, badge rank
+- **Weekly trend chart** — bar chart of reports filed and resolved over last 7 days with resolution rate
+- **Predictive insights panel**:
   - 🔥 Problem hotspots by category
-  - 📊 Severity breakdown
-  - ⚠️ Critical issues needing attention
-- My recent reports
+  - 📊 Severity breakdown with AI tip
+  - ⚠️ Critical issues needing immediate attention
+- My recent reports with status badges
 - Community feed preview
 
-### 🛡️ Admin Panel
-- Full reports table with status management
-- One-click status updates per report
-- Department assignment visibility
+### 🏆 Gamification
+- **Points system** — earn points for reporting issues
+- **5 badge levels** — Newcomer 🌱 → Reporter 📋 → Guardian 🛡️ → Hero ⭐ → Champion 🏆
+- **Community leaderboard** — top contributors ranked by points
+
+### 🛡️ Admin Panel (/admin)
+- Full reports table with inline status update dropdown
+- **SLA tracker** — flags overdue issues (Critical: 1 day, High: 3 days, Medium: 7 days, Low: 14 days)
+- KPI cards: Total, Open, In Progress, Resolved, Avg. resolution days, Resolution %
+- **Impact charts** — category breakdown, status distribution, weekly trend, severity breakdown
+- **AI predictive insights** — powered by Gemini 2.0 Flash
+- User leaderboard with badge levels
 - Category breakdown bar chart
-- User leaderboard with points & badges
+
+### 🤖 AI Features
+- Auto-categorization using Google Gemini 2.0 Flash
+- Automatic department routing based on issue type
+- AI-generated plain-language summary for every report
+- AI duplicate detection using text similarity + geo-distance (500m radius)
+- Keyword-based fallback classifier when Gemini quota is exceeded
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript |
-| Database | Supabase (PostgreSQL) |
-| Auth | Supabase Auth |
-| AI | Google Gemini 2.0 Flash |
-| Maps | Google Maps JavaScript API |
-| Email | Nodemailer + Gmail |
-| Styling | Tailwind CSS + Inline Styles |
-| Icons | Lucide React |
-| Toast | React Hot Toast |
-| Hosting | Vercel (recommended) |
+| Layer | Technology | Version |
+|---|---|---|
+| Framework | Next.js (App Router) | 16.2.9 |
+| Language | TypeScript | ^5 |
+| Frontend | React | 19.2.4 |
+| Database + Auth + Storage | Supabase (PostgreSQL) | ^2.108.2 |
+| AI | Google Gemini 2.0 Flash | @google/generative-ai ^0.24.1 |
+| Maps | Google Maps JavaScript API | @react-google-maps/api ^2.20.8 |
+| Email | Nodemailer + Gmail | ^9.0.1 |
+| Forms | React Hook Form + Zod | ^7.80.0 / ^4.4.3 |
+| Styling | Tailwind CSS | ^4.3.1 |
+| Icons | Lucide React | ^1.21.0 |
+| Toast notifications | React Hot Toast | ^2.6.0 |
+| UI primitives | Radix UI + shadcn | ^1.6.0 |
+| Unique IDs | UUID | ^14.0.1 |
 
 ---
 
@@ -90,9 +103,9 @@ Built for the **Community Hero — Hyperlocal Problem Solver** hackathon challen
 
 ### Prerequisites
 - Node.js 18+
-- Supabase account
-- Google Cloud account (Maps API + Gemini API)
-- Gmail account with App Password enabled
+- Supabase account (free tier works)
+- Google Cloud account (Maps API + Gemini API keys)
+- Gmail account with 2-Step Verification enabled
 
 ### 1. Clone the repository
 
@@ -109,7 +122,7 @@ npm install
 
 ### 3. Set up environment variables
 
-Create a `.env.local` file in the root:
+Create a `.env.local` file in the root directory:
 
 ```env
 # Supabase
@@ -132,7 +145,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ### 4. Set up Supabase database
 
-Run the following SQL in your Supabase SQL Editor:
+Run this SQL in your Supabase SQL Editor:
 
 ```sql
 -- Users table
@@ -154,6 +167,15 @@ CREATE TABLE departments (
   email text
 );
 
+-- Insert default departments
+INSERT INTO departments (name, email) VALUES
+  ('Roads & Infrastructure', 'roads@civic.gov'),
+  ('Sanitation & Waste', 'sanitation@civic.gov'),
+  ('Water & Utilities', 'water@civic.gov'),
+  ('Electrical & Lighting', 'electrical@civic.gov'),
+  ('Public Safety', 'safety@civic.gov'),
+  ('Parks & Recreation', 'parks@civic.gov');
+
 -- Reports table
 CREATE TABLE reports (
   id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -166,6 +188,7 @@ CREATE TABLE reports (
   status text DEFAULT 'open',
   department_id uuid REFERENCES departments(id),
   image_url text,
+  video_url text,
   latitude double precision,
   longitude double precision,
   address text,
@@ -173,6 +196,9 @@ CREATE TABLE reports (
   comments_count integer DEFAULT 0,
   is_anonymous boolean DEFAULT false,
   is_verified boolean DEFAULT false,
+  resolution_image_url text,
+  resolution_note text,
+  resolved_at timestamptz,
   created_at timestamptz DEFAULT now(),
   updated_at timestamptz DEFAULT now()
 );
@@ -205,7 +231,7 @@ CREATE TABLE timeline_events (
   created_at timestamptz DEFAULT now()
 );
 
--- Report validations table
+-- Report validations (confirm/dispute)
 CREATE TABLE report_validations (
   id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
   report_id uuid REFERENCES reports(id) ON DELETE CASCADE,
@@ -225,22 +251,40 @@ ALTER TABLE report_validations ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies
 CREATE POLICY "Anyone can read reports" ON reports FOR SELECT USING (true);
-CREATE POLICY "Users can insert reports" ON reports FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can insert reports" ON reports FOR INSERT WITH CHECK (auth.uid() = user_id OR user_id IS NULL);
 CREATE POLICY "Users can update own reports" ON reports FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can delete own reports" ON reports FOR DELETE USING (auth.uid() = user_id);
-
+CREATE POLICY "Admins can update any report" ON reports FOR UPDATE USING (
+  EXISTS (SELECT 1 FROM users WHERE users.id = auth.uid() AND users.is_admin = true)
+);
 CREATE POLICY "Anyone can read validations" ON report_validations FOR SELECT USING (true);
 CREATE POLICY "Users can manage own validations" ON report_validations FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Anyone can read upvotes" ON upvotes FOR SELECT USING (true);
+CREATE POLICY "Users can manage own upvotes" ON upvotes FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Anyone can read comments" ON comments FOR SELECT USING (true);
+CREATE POLICY "Users can insert comments" ON comments FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Anyone can read timeline" ON timeline_events FOR SELECT USING (true);
+CREATE POLICY "Admins can insert timeline" ON timeline_events FOR INSERT WITH CHECK (
+  EXISTS (SELECT 1 FROM users WHERE users.id = auth.uid() AND users.is_admin = true)
+);
+CREATE POLICY "Anyone can read users" ON users FOR SELECT USING (true);
+CREATE POLICY "Users can update own profile" ON users FOR UPDATE USING (auth.uid() = id);
 ```
 
-### 5. Enable Gmail App Password
+### 5. Set up Supabase Storage
+
+In Supabase Dashboard → Storage, create two **public** buckets:
+- `report-images`
+- `report-videos`
+
+### 6. Set up Gmail App Password
 
 1. Go to [myaccount.google.com](https://myaccount.google.com)
 2. Security → 2-Step Verification → Enable
-3. Security → App Passwords → Create for "Mail"
-4. Copy the 16-character password to `GMAIL_APP_PASSWORD`
+3. Security → App Passwords → Create → name it `civic-saathi`
+4. Copy the 16-character password into `GMAIL_APP_PASSWORD`
 
-### 6. Run the development server
+### 7. Run the development server
 
 ```bash
 npm run dev
@@ -250,27 +294,50 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
+## 🔑 Making a User Admin
+
+Run this in Supabase SQL Editor:
+
+```sql
+UPDATE users SET is_admin = true WHERE email = 'youremail@gmail.com';
+```
+
+Then visit [http://localhost:3000/admin](http://localhost:3000/admin)
+
+---
+
 ## 📁 Project Structure
 
 ```
 civic-saathi-ai/
 ├── app/
 │   ├── (auth)/
-│   │   ├── login/
-│   │   └── signup/
+│   │   ├── login/page.tsx
+│   │   └── signup/page.tsx
 │   ├── (dashboard)/
-│   │   ├── admin/          # Admin dashboard
-│   │   ├── community/      # All reports feed
-│   │   ├── dashboard/      # User dashboard + insights
-│   │   ├── map/            # Google Maps view
-│   │   ├── report/         # Submit new report
-│   │   └── reports/[id]/   # Report detail page
-│   └── api/
-│       ├── ai/classify/    # AI categorization endpoint
-│       └── notify/         # Email notification endpoint
+│   │   ├── admin/page.tsx           # Admin dashboard
+│   │   ├── community/page.tsx       # All reports feed
+│   │   ├── dashboard/page.tsx       # User dashboard + insights
+│   │   ├── map/page.tsx             # Google Maps view
+│   │   ├── report/page.tsx          # Submit new report
+│   │   ├── reports/[id]/page.tsx    # Report detail page
+│   │   └── layout.tsx               # Sidebar layout
+│   ├── api/
+│   │   ├── ai/classify/route.ts     # Gemini AI categorization
+│   │   ├── ai/insights/route.ts     # AI predictive insights
+│   │   ├── check-duplicate/route.ts # Duplicate detection
+│   │   ├── notify/route.ts          # Email notifications
+│   │   └── reports/route.ts
+│   ├── layout.tsx
+│   └── page.tsx                     # Landing page
 ├── components/
 │   ├── admin/
-│   │   └── AdminStatusUpdate.tsx
+│   │   ├── AdminStatusUpdate.tsx
+│   │   ├── ImpactCharts.tsx
+│   │   ├── PredictiveInsights.tsx
+│   │   └── ResolutionUpload.tsx
+│   ├── dashboard/
+│   │   └── WeeklyTrendChart.tsx
 │   ├── layout/
 │   │   └── Sidebar.tsx
 │   └── reports/
@@ -290,66 +357,45 @@ civic-saathi-ai/
 │   ├── gemini.ts
 │   ├── india-locations.ts
 │   └── utils.ts
-└── types/
+├── types/index.ts
+├── .env.local            # Not committed
+├── package.json
+└── README.md
 ```
 
 ---
 
-## 🔑 Making a User Admin
-
-In Supabase SQL Editor:
-
-```sql
-UPDATE users SET is_admin = true WHERE email = 'youremail@gmail.com';
-```
-
-Then access the admin panel at `/admin`.
-
----
-
-## 🌐 Deployment
-
-### Deploy to Vercel
+## 🌐 Deploy to Vercel
 
 ```bash
 npm install -g vercel
-vercel
+vercel --prod
 ```
 
-Add all environment variables in Vercel dashboard under **Settings → Environment Variables**.
+Add all `.env.local` variables in Vercel Dashboard → Project → Settings → Environment Variables. Update `NEXT_PUBLIC_APP_URL` to your live Vercel URL.
 
 ---
 
-## 📸 Screenshots
+## 🎯 Problem Statement Coverage
 
-| Dashboard | Community Feed | Issue Map |
+| Requirement | Status | Implementation |
 |---|---|---|
-| Personal stats & insights | All civic reports | Google Maps view |
-
-| Report Detail | Admin Panel | Issue Timeline |
-|---|---|---|
-| Full report with AI summary | Manage all reports | Track issue progress |
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+| Image-based issue reporting | ✅ | Supabase Storage, max 10MB |
+| Video-based issue reporting | ✅ | Supabase Storage, max 50MB |
+| AI-powered issue categorization | ✅ | Google Gemini 2.0 Flash |
+| Geo-location and mapping | ✅ | Google Maps API + GPS |
+| Community verification | ✅ | 5-upvote badge + Confirm/Dispute |
+| Real-time issue tracking | ✅ | 4-stage timeline with activity log |
+| Impact dashboards | ✅ | User dashboard + Admin dashboard |
+| Predictive insights | ✅ | Hotspots + SLA tracker + Weekly trend |
+| Gamification | ✅ | Points + 5 badge levels + Leaderboard |
 
 ---
 
 ## 📄 License
 
-MIT License — see [LICENSE](LICENSE) for details.
+MIT License
 
 ---
 
-## 👨‍💻 Built With ❤️ for Community Impact
-
-Civic Saathi was built to bridge the gap between citizens and local authorities, making civic issue reporting transparent, trackable, and collaborative.
-
-> *"Every pothole reported is a step toward better roads. Every streetlight fixed is a safer street. Together, we build better communities."*
+*Built with ❤️ for Community Impact — Civic Saathi makes every citizen a guardian of their community.*
