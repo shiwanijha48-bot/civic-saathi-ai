@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import toast from 'react-hot-toast';
-import { useRouter } from 'next/navigation';
 
 interface Props {
   reportId: string;
@@ -15,7 +14,6 @@ const STATUSES = ['open', 'in_progress', 'resolved', 'closed'];
 export function AdminStatusUpdate({ reportId, currentStatus }: Props) {
   const [status, setStatus] = useState(currentStatus);
   const [saving, setSaving] = useState(false);
-  const router = useRouter();
 
   const update = async (newStatus: string) => {
     if (newStatus === status) return;
@@ -28,12 +26,14 @@ export function AdminStatusUpdate({ reportId, currentStatus }: Props) {
 
     if (error) {
       toast.error('Failed to update status');
+      setSaving(false);
     } else {
       setStatus(newStatus);
       toast.success('Status updated');
-      router.refresh();
+      setSaving(false);
+      // Force full page reload so all KPI numbers update
+      window.location.reload();
     }
-    setSaving(false);
   };
 
   return (

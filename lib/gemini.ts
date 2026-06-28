@@ -8,7 +8,7 @@ export async function analyzeIssueImage(
   mimeType: string,
   userDescription: string
 ): Promise<AIAnalysis> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
   const prompt = `You are a civic issue classifier for an Indian city. Analyze this image and the user description to classify the civic problem.
 
@@ -43,7 +43,7 @@ Severity guidelines:
 }
 
 export async function analyzeIssueText(description: string): Promise<AIAnalysis> {
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
   const prompt = `You are a civic issue classifier for an Indian city. Based on this description, classify the civic problem.
 

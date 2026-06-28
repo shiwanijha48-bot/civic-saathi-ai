@@ -10,17 +10,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning>
         {children}
         <Toaster
           position="top-right"
           toastOptions={{
             style: {
-              background: '#1e293b',
-              color: '#f8fafc',
+              background: '#1e293b', color: '#f8fafc',
               border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '12px',
-              fontSize: '14px',
+              borderRadius: '12px', fontSize: '14px',
             },
             success: { iconTheme: { primary: '#22c55e', secondary: '#f8fafc' } },
             error:   { iconTheme: { primary: '#ef4444', secondary: '#f8fafc' } },

@@ -2,8 +2,10 @@ import { createClient } from '@/lib/supabase/server';
 import { notFound } from 'next/navigation';
 import { ReportActions } from '@/components/reports/ReportActions';
 import { VerificationBadge } from '@/components/reports/VerificationBadge';
+import { ResolutionUpload } from '@/components/admin/ResolutionUpload';
 import { ValidationButtons } from '@/components/reports/ValidationButtons';
 import Link from 'next/link';
+import { VerifyButton } from '@/components/reports/VerifyButton';
 import { ArrowUp, MessageSquare, MapPin, Calendar, Building } from 'lucide-react';
 import { CommentSection } from '@/components/reports/CommentSection';
 import { UpvoteButton } from '@/components/reports/UpvoteButton';
@@ -23,32 +25,6 @@ const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
   closed:      { bg: 'rgba(100,116,139,0.15)', text: '#94a3b8' },
 };
 
-// Fetch timeline events
-  const { data: timelineEvents } = await supabase
-    .from('timeline_events')
-    .select('*, users(name)')
-    .eq('report_id', report.id)
-    .order('created_at', { ascending: true });
-
-  // Validation counts — ADD THESE HERE
-  const { count: confirmsCount } = await supabase
-    .from('report_validations')
-    .select('*', { count: 'exact', head: true })
-    .eq('report_id', report.id)
-    .eq('type', 'confirm');
-
-  const { count: disputesCount } = await supabase
-    .from('report_validations')
-    .select('*', { count: 'exact', head: true })
-    .eq('report_id', report.id)
-    .eq('type', 'dispute');
-
-  const { data: userValidation } = user ? await supabase
-    .from('report_validations')
-    .select('type')
-    .eq('report_id', report.id)
-    .eq('user_id', user.id)
-    .maybeSingle() : { data: null };
 
 export default async function ReportDetailPage({
   params,
@@ -101,12 +77,41 @@ export default async function ReportDetailPage({
     .eq('report_id', report.id);
 
 
-  // Fetch timeline events
+// Fetch timeline events
   const { data: timelineEvents } = await supabase
     .from('timeline_events')
     .select('*, users(name)')
     .eq('report_id', report.id)
     .order('created_at', { ascending: true });
+
+  // Validation counts — ADD THESE HERE
+  const { count: confirmsCount } = await supabase
+    .from('report_validations')
+    .select('*', { count: 'exact', head: true })
+    .eq('report_id', report.id)
+    .eq('type', 'confirm');
+
+  const { count: disputesCount } = await supabase
+    .from('report_validations')
+    .select('*', { count: 'exact', head: true })
+    .eq('report_id', report.id)
+    .eq('type', 'dispute');
+
+  const { data: userValidation } = user ? await supabase
+    .from('report_validations')
+    .select('type')
+    .eq('report_id', report.id)
+    .eq('user_id', user.id)
+    .maybeSingle() : { data: null };
+
+    const { data: userVerification } = user
+  ? await supabase
+      .from('verifications')
+      .select('id')
+      .eq('report_id', report.id)
+      .eq('user_id', user.id)
+      .maybeSingle()
+  : { data: null };
 
   const sev  = SEVERITY_COLORS[report.severity] ?? SEVERITY_COLORS.medium;
   const stat = STATUS_COLORS[report.status]     ?? STATUS_COLORS.open;
@@ -122,16 +127,25 @@ export default async function ReportDetailPage({
         ← Back to community
       </Link>
 
-      {/* Image */}
-      {report.image_url && (
-        <div style={{ borderRadius: '16px', overflow: 'hidden', marginBottom: '24px' }}>
-          <img
-            src={report.image_url}
-            alt={report.title}
-            style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }}
-          />
-        </div>
-      )}
+{/* Media — image or video */}
+{report.image_url && (
+  <div style={{ borderRadius: '16px', overflow: 'hidden', marginBottom: '24px' }}>
+    {report.image_url.toLowerCase().match(/\.(mp4|mov|webm|ogg|avi|mkv)/) ||
+     report.image_url.toLowerCase().includes('video') ? (
+      <video
+        src={report.image_url}
+        controls
+        style={{ width: '100%', maxHeight: '400px', display: 'block', background: '#000' }}
+      />
+    ) : (
+      <img
+        src={report.image_url}
+        alt={report.title}
+        style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }}
+      />
+    )}
+  </div>
+)}
 
       {/* Badges */}
       <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '12px' }}>
@@ -257,6 +271,13 @@ export default async function ReportDetailPage({
         userId={user?.id}
       />
 
+      <VerifyButton
+  reportId={report.id}
+  initialCount={report.verifications_count ?? 0}
+  initialVerified={!!userVerification}
+  userId={user?.id}
+/>
+
       <ValidationButtons
   reportId={report.id}
   userId={user?.id}
@@ -265,6 +286,40 @@ export default async function ReportDetailPage({
   initialUserValidation={(userValidation?.type as 'confirm' | 'dispute') ?? null}
 />
 
+{/* Resolution Proof */}
+{isAdmin && (report.status === 'resolved' || report.status === 'closed') && (
+  <ResolutionUpload
+    reportId={report.id}
+    currentStatus={report.status}
+    existingResolutionImage={report.resolution_image_url}
+    existingResolutionNote={report.resolution_note}
+  />
+)}
+
+{/* Show resolution proof to all users if it exists */}
+{report.resolution_image_url && !isAdmin && (
+  <div style={{
+    background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.2)',
+    borderRadius: '16px', padding: '20px', marginBottom: '16px',
+  }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+      <CheckCircle size={16} style={{ color: '#4ade80' }} />
+      <h3 style={{ color: '#4ade80', fontWeight: 600, fontSize: '14px', margin: 0 }}>
+        Issue Resolved — Proof of Fix
+      </h3>
+    </div>
+    <img
+      src={report.resolution_image_url}
+      alt="Resolution proof"
+      style={{ width: '100%', borderRadius: '10px', maxHeight: '250px', objectFit: 'cover', marginBottom: '10px' }}
+    />
+    {report.resolution_note && (
+      <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '13px', margin: 0, lineHeight: 1.6 }}>
+        {report.resolution_note}
+      </p>
+    )}
+  </div>
+)}
 
       {/* ✅ Timeline — new feature */}
       <div style={{ marginBottom: '24px' }}>
